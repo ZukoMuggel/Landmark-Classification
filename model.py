@@ -14,8 +14,8 @@ class MyModel(nn.Module):
         # the Dropout layer, use the variable "dropout" to indicate how much
         # to use (like nn.Dropout(p=dropout))
         self.model = nn.Sequential(
-            
-            # 3x224x224
+
+           # 3x224x224
             nn.Conv2d(3, 32, 3, padding=1),
             nn.ReLU(),
             nn.MaxPool2d(2, 2),
@@ -35,7 +35,6 @@ class MyModel(nn.Module):
             nn.ReLU(),
             nn.BatchNorm2d(256),
             nn.MaxPool2d(2, 2),
-
             #256x14x14
             nn.Conv2d(256, 512, 3, padding=1),
             nn.ReLU(),
@@ -45,21 +44,13 @@ class MyModel(nn.Module):
             
             nn.Flatten(),
             nn.Linear(512 * 7 * 7, 512),
-            nn.Sigmoid(),
             nn.Dropout(dropout),
             
             
-            nn.Linear(512, 256),
-            nn.Sigmoid(),
-            nn.Linear(256, 128),
-            nn.Sigmoid(),
-            nn.Linear(128, 84),
-            nn.Sigmoid(),
-            nn.Linear(84, num_classes)
-            
-            
-            
-        )
+            nn.Linear(512, 128),
+            nn.Linear(128, num_classes)
+
+            )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # YOUR CODE HERE: process the input tensor through the
